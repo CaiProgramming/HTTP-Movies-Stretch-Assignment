@@ -1,16 +1,18 @@
-import React from 'react';
-import axios from 'axios';
-import MovieCard from './MovieCard';
+import React from "react";
+import axios from "axios";
+import MovieCard from "./MovieCard";
 export default class Movie extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      movie: null
-    };
-  }
+  state = {
+    movie: null
+  };
 
   componentDidMount() {
-    this.fetchMovie(this.props.match.params.id);
+    axios.get(`/api/movies/${this.props.match.params.id}`).then(res => {
+      this.setState({
+        movie: res.data
+      });
+    });
+    console.log("get movie");
   }
 
   componentWillReceiveProps(newProps) {
