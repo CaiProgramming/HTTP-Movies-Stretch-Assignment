@@ -1,19 +1,21 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import MovieCard from './MovieCard';
+import React, { Component } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import MovieCard from "./MovieCard";
 export default class MovieList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      movies: []
-    };
-  }
+  state = {
+    movies: []
+  };
 
-  componentDidMount() {
-    // fill me in with an HTTP Request to `localhost:5000/api/movies`
-    this.setState({ movies: [] });
-  }
+  componentDidMount = () => {
+    axios
+      .get(`/api/movies`)
+      .then(res => {
+        console.log(res);
+        this.setState({ movies: res.data });
+      })
+      .catch(res => console.log(res));
+  };
 
   render() {
     return (
